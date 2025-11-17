@@ -4,7 +4,7 @@ import {
   HydrationBoundary,
   dehydrate,
 } from "@tanstack/react-query";
-import { fetchNoteById } from "@/lib/api";
+import { fetchNoteById } from "@/lib/api/serverApi";
 import NoteDetailsClient from "./NoteDetails.client";
 
 interface NoteProps {
@@ -16,15 +16,12 @@ export async function generateMetadata({
 }: NoteProps): Promise<Metadata> {
   const { id } = await params;
   const note = await fetchNoteById(id);
-
-  const preview = note.content.slice(0, 32);
-
   return {
-    title: `Note: ${note.title}`,
-    description: preview,
+    title: `Note: ${note.title} `,
+    description: `${note.content.slice(0, 32)}`,
     openGraph: {
-      title: `Note: ${note.title}`,
-      description: preview,
+      title: `Note: ${note.title} `,
+      description: `${note.content.slice(0, 32)}`,
       url: `https://notehub.com/notes/${id}`,
       images: [
         {
@@ -40,7 +37,6 @@ export async function generateMetadata({
 
 const NoteDetails = async ({ params }: NoteProps) => {
   const { id } = await params;
-
   const queryClient = new QueryClient();
 
   await queryClient.prefetchQuery({

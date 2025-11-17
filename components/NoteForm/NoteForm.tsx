@@ -6,12 +6,8 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { toast } from "react-hot-toast";
 import { initialDraft, useDraftNoteStore } from "@/lib/store/noteStore";
 import css from "./NoteForm.module.css";
-import { createNote, CreateNoteData } from "@/lib/api";
+import { createNote, CreateNoteData } from "@/lib/api/clientApi";
 import Loading from "@/app/loading";
-
-interface NoteFormProps {
-  onCancel: () => void;
-}
 
 const tagsList = ["Work", "Personal", "Meeting", "Shopping", "Todo"];
 
